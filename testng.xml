@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="TestAll">
+    
+    <test name="lexer">
+        <classes>
+            <class name="lexer.TestLexer" />
+        </classes>
+    </test>
+    
+    <test name="symbols">
+        <classes>
+            <class name="symbols.TestEnv" />
+        </classes>
+    </test>
+    
+</suite>
