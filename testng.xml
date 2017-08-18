@@ -11,6 +11,7 @@
     <test name="symbols">
         <classes>
             <class name="symbols.TestEnv" />
+            <class name="symbols.TestType" />
         </classes>
     </test>
     
