@@ -3,16 +3,26 @@ package symbols;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import inter.MockId;
+import lexer.Tag;
+import lexer.Word;
+
 public class TestEnv {
+    private static final Word X = new Word(Tag.ID, "x");
+    private static final Word Y = new Word(Tag.ID, "y");
+
+    private static final MockId GLOBAL = new MockId("global");
+    private static final MockId LOCAL = new MockId("local");
+
     @Test
-    public void testStoresSymbols() {
+    public void testStoresIds() {
         Env global = new Env(null);
 
-        global.put("x", new MockSymbol("global"));
-        global.put("y", new MockSymbol("global"));
+        global.put(X, GLOBAL);
+        global.put(Y, GLOBAL);
 
-        Assert.assertNotNull(global.get("x"));
-        Assert.assertNotNull(global.get("y"));
+        Assert.assertEquals(global.get(X), GLOBAL);
+        Assert.assertEquals(global.get(Y), GLOBAL);
     }
 
     @Test
@@ -20,10 +30,9 @@ public class TestEnv {
         Env global = new Env(null);
         Env local = new Env(global);
 
-        global.put("x", new MockSymbol("global"));
+        global.put(X, GLOBAL);
 
-        Assert.assertNotNull(local.get("x"));
-        Assert.assertEquals(((MockSymbol) local.get("x")).scope, "global");
+        Assert.assertEquals(local.get(X), GLOBAL);
     }
 
     @Test
@@ -31,11 +40,10 @@ public class TestEnv {
         Env global = new Env(null);
         Env local = new Env(global);
 
-        global.put("x", new MockSymbol("global"));
-        local.put("x", new MockSymbol("local"));
+        global.put(X, GLOBAL);
+        local.put(X, LOCAL);
 
-        Assert.assertNotNull(local.get("x"));
-        Assert.assertEquals(((MockSymbol) local.get("x")).scope, "local");
+        Assert.assertEquals(local.get(X), LOCAL);
     }
 
     @Test
@@ -43,6 +51,6 @@ public class TestEnv {
         Env global = new Env(null);
         Env local = new Env(global);
 
-        Assert.assertNull(local.get("x"));
+        Assert.assertNull(local.get(X));
     }
 }

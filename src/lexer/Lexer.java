@@ -6,11 +6,19 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import symbols.Type;
 
 public class Lexer {
-    private static final String numberPattern = "\\d*\\.?\\d+([eE][-+]?\\d+)?";
-    private static final String lexemePattern = "[a-zA-Z_]\\w*";
-    private static final String tokenPattern = "==|!=|<=|>=|[-+*/%.()=;<>]";
+    private static final Pattern numberPattern = Pattern.compile("\\G(\\d+\\.?\\d*|\\.\\d+)([eE][-+]?\\d+)?");
+    private static final Pattern lexemePattern = Pattern.compile("\\G[a-zA-Z_]\\w*");
+    private static final Pattern tokenPattern = Pattern.compile("\\G(&&|\\|\\||==|!=|<=|>=|[-+*/()=!;<>\\[\\]])");
+    private static final Pattern whitespacePattern = Pattern.compile("\\G\\s");
+    private static final Pattern lineCommentPattern = Pattern.compile("\\G//.*\n");
+    private static final Pattern blockCommentStartPattern = Pattern.compile("\\G/\\*");
+    private static final Pattern blockCommentEndPattern = Pattern.compile("\\G[^\n]*\\*/");
+    private static final Pattern linePattern = Pattern.compile("\\G.*\n");
 
     public int line = 1;
 
@@ -20,8 +28,17 @@ public class Lexer {
     public Lexer(Reader in) {
         this.in = new Scanner(in);
 
-        reserve(Tag.TRUE, "true");
-        reserve(Tag.FALSE, "false");
+        reserve(Tag.IF, "if");
+        reserve(Tag.ELSE, "else");
+        reserve(Tag.DO, "do");
+        reserve(Tag.WHILE, "while");
+        reserve(Tag.BREAK, "break");
+        reserve(Word.TRUE);
+        reserve(Word.FALSE);
+        reserve(Type.INT);
+        reserve(Type.CHAR);
+        reserve(Type.BOOL);
+        reserve(Type.FLOAT);
     }
 
     public Lexer(InputStream in) {
@@ -29,7 +46,11 @@ public class Lexer {
     }
 
     private void reserve(int tag, String lexeme) {
-        words.put(lexeme, new Word(tag, lexeme));
+        reserve(new Word(tag, lexeme));
+    }
+
+    private void reserve(Word word) {
+        words.put(word.lexeme, word);
     }
 
     public Token scan() {
@@ -38,8 +59,13 @@ public class Lexer {
 
         String next = null;
         if ((next = scan(numberPattern)) != null) {
-            double value = Double.parseDouble(next);
-            return new Num(value);
+            try {
+                int value = Integer.parseInt(next);
+                return new Num(value);
+            } catch (NumberFormatException e) {
+                double value = Double.parseDouble(next);
+                return new Real(value);
+            }
         } else if ((next = scan(lexemePattern)) != null) {
             String lexeme = next;
             Word word = words.get(lexeme);
@@ -49,8 +75,7 @@ public class Lexer {
             }
             return word;
         } else if ((next = scan(tokenPattern)) != null) {
-            int tag = getTag(next);
-            return new Token(tag);
+            return getToken(next);
         } else {
             return null;
         }
@@ -58,7 +83,7 @@ public class Lexer {
 
     private void skipWhitespace() {
         String next = null;
-        while ((next = scan("\\s")) != null) {
+        while ((next = scan(whitespacePattern)) != null) {
             if (next.equals("\n"))
                 ++line;
         }
@@ -66,12 +91,12 @@ public class Lexer {
 
     private void skipComments() {
         while (true) {
-            if (scan("//.*\n") != null) {
+            if (scan(lineCommentPattern) != null) {
                 ++line;
                 skipWhitespace();
-            } else if (scan("/\\*") != null) {
-                while (scan("[^\n]*\\*/") == null) {
-                    scan(".*\n");
+            } else if (scan(blockCommentStartPattern) != null) {
+                while (scan(blockCommentEndPattern) == null) {
+                    scan(linePattern);
                     ++line;
                 }
                 skipWhitespace();
@@ -81,22 +106,26 @@ public class Lexer {
         }
     }
 
-    private String scan(String regex) {
-        return in.findWithinHorizon("\\G" + regex, 0);
+    private String scan(Pattern pattern) {
+        return in.findWithinHorizon(pattern, 0);
     }
 
-    private int getTag(String terminal) {
+    private Token getToken(String terminal) {
         switch (terminal) {
+        case "&&":
+            return Word.AND;
+        case "||":
+            return Word.OR;
         case "==":
-            return Tag.EQUAL;
+            return Word.EQUAL;
         case "!=":
-            return Tag.NOT_EQUAL;
+            return Word.NOT_EQUAL;
         case "<=":
-            return Tag.LESS_THAN_OR_EQUAL;
+            return Word.LESS_THAN_OR_EQUAL;
         case ">=":
-            return Tag.GREATER_THAN_OR_EQUAL;
+            return Word.GREATER_THAN_OR_EQUAL;
         default:
-            return terminal.charAt(0);
+            return new Token(terminal.charAt(0));
         }
     }
 }

@@ -3,8 +3,11 @@ package symbols;
 import java.util.HashMap;
 import java.util.Map;
 
+import inter.Id;
+import lexer.Token;
+
 public class Env {
-    private Map<String, Symbol> table;
+    private Map<Token, Id> table;
     protected Env prev;
 
     public Env(Env prev) {
@@ -12,13 +15,13 @@ public class Env {
         this.prev = prev;
     }
 
-    public void put(String key, Symbol value) {
+    public void put(Token key, Id value) {
         table.put(key, value);
     }
 
-    public Symbol get(String key) {
+    public Id get(Token key) {
         for (Env env = this; env != null; env = env.prev) {
-            Symbol value = env.table.get(key);
+            Id value = env.table.get(key);
             if (value != null)
                 return value;
         }
