@@ -52,7 +52,7 @@ public class Lexer {
             int tag = getTag(next);
             return new Token(tag);
         } else {
-            throw new Error("Bad token");
+            return null;
         }
     }
 

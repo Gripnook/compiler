@@ -126,11 +126,13 @@ public class TestLexer {
         Assert.assertEquals(t.tag, Tag.GREATER_THAN_OR_EQUAL);
     }
 
-    @Test(expectedExceptions = java.lang.Error.class)
-    public void testBadTokenThrowsException() {
+    @Test
+    public void testBadTokenReturnsNull() {
         StringReader in = new StringReader("");
         Lexer lex = new Lexer(in);
-        lex.scan();
+
+        Token t = lex.scan();
+        Assert.assertNull(t);
     }
 
     @Test
