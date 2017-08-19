@@ -137,6 +137,60 @@ public class NodeFactory {
         return temp;
     }
 
+    public Stmt createStmt() {
+        Stmt stmt = new Stmt(lex.getLine());
+        initialize(stmt);
+        return stmt;
+    }
+
+    public If createIf(Expr expr, Stmt stmt) {
+        If statement = new If(expr, stmt, lex.getLine());
+        initialize(statement);
+        return statement;
+    }
+
+    public Else createElse(Expr expr, Stmt stmt1, Stmt stmt2) {
+        Else statement = new Else(expr, stmt1, stmt2, lex.getLine());
+        initialize(statement);
+        return statement;
+    }
+
+    public While createWhile() {
+        While statement = new While(lex.getLine());
+        initialize(statement);
+        return statement;
+    }
+
+    public Do createDo() {
+        Do statement = new Do(lex.getLine());
+        initialize(statement);
+        return statement;
+    }
+
+    public Break createBreak(Stmt enclosing) {
+        Break statement = new Break(enclosing, lex.getLine());
+        initialize(statement);
+        return statement;
+    }
+
+    public Seq createSeq(Stmt stmt1, Stmt stmt2) {
+        Seq seq = new Seq(stmt1, stmt2, lex.getLine());
+        initialize(seq);
+        return seq;
+    }
+
+    public Set createSet(Id id, Expr expr) {
+        Set set = new Set(id, expr, lex.getLine());
+        initialize(set);
+        return set;
+    }
+
+    public SetElem createSetElem(Access access, Expr expr) {
+        SetElem setElem = new SetElem(access, expr, lex.getLine());
+        initialize(setElem);
+        return setElem;
+    }
+
     private void initialize(Node node) {
         node.setFactory(this);
         node.setWriter(out);
