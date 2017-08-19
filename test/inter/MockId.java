@@ -4,6 +4,7 @@ public class MockId extends Id {
     public final String scope;
 
     public MockId(String scope) {
+        super(null, null, 0, 0);
         this.scope = scope;
     }
 

@@ -102,7 +102,7 @@ public class TestLexer {
         Lexer lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
-        Assert.assertEquals(lex.line, 4);
+        Assert.assertEquals(lex.getLine(), 4);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class TestLexer {
         Lexer lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
-        Assert.assertEquals(lex.line, 4);
+        Assert.assertEquals(lex.getLine(), 4);
     }
 
     @Test
@@ -152,7 +152,7 @@ public class TestLexer {
         Lexer lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
-        Assert.assertEquals(lex.line, 6);
+        Assert.assertEquals(lex.getLine(), 6);
     }
 
     @Test

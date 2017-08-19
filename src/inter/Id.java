@@ -1,6 +1,18 @@
 package inter;
 
-// TODO
-public class Id {
+import lexer.Word;
+import symbols.Type;
 
+public class Id extends Expr {
+    protected int offset; // Relative address.
+
+    protected Id(Word word, Type type, int offset, int lexline) {
+        super(word, type, lexline);
+        this.offset = offset;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other) && (other instanceof Id) && offset == ((Id) other).offset;
+    }
 }

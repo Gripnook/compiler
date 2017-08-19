@@ -30,17 +30,21 @@ public class TestType {
         Assert.assertNull(Type.max(Type.BOOL, Type.FLOAT));
         Assert.assertNull(Type.max(Type.BOOL, Type.INT));
         Assert.assertNull(Type.max(Type.BOOL, Type.CHAR));
+        Assert.assertNull(Type.max(Type.BOOL, Type.BOOL));
 
         Assert.assertNull(Type.max(new Array(Type.FLOAT, 10), Type.FLOAT));
         Assert.assertNull(Type.max(new Array(Type.FLOAT, 10), Type.INT));
         Assert.assertNull(Type.max(new Array(Type.FLOAT, 10), Type.CHAR));
+        Assert.assertNull(Type.max(new Array(Type.FLOAT, 10), new Array(Type.FLOAT, 10)));
 
         Assert.assertNull(Type.max(new Array(Type.INT, 10), Type.FLOAT));
         Assert.assertNull(Type.max(new Array(Type.INT, 10), Type.INT));
         Assert.assertNull(Type.max(new Array(Type.INT, 10), Type.CHAR));
+        Assert.assertNull(Type.max(new Array(Type.INT, 10), new Array(Type.INT, 10)));
 
         Assert.assertNull(Type.max(new Array(Type.CHAR, 10), Type.FLOAT));
         Assert.assertNull(Type.max(new Array(Type.CHAR, 10), Type.INT));
         Assert.assertNull(Type.max(new Array(Type.CHAR, 10), Type.CHAR));
+        Assert.assertNull(Type.max(new Array(Type.CHAR, 10), new Array(Type.CHAR, 10)));
     }
 }

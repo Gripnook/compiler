@@ -8,7 +8,7 @@ import lexer.Token;
 
 public class Env {
     private Map<Token, Id> table;
-    protected Env prev;
+    private Env prev;
 
     public Env(Env prev) {
         table = new HashMap<>();

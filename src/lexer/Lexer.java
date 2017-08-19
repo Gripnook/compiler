@@ -20,7 +20,7 @@ public class Lexer {
     private static final Pattern blockCommentEndPattern = Pattern.compile("\\G[^\n]*\\*/");
     private static final Pattern linePattern = Pattern.compile("\\G.*\n");
 
-    public int line = 1;
+    private int line = 1;
 
     private Scanner in;
     private Map<String, Word> words = new HashMap<>();
@@ -51,6 +51,10 @@ public class Lexer {
 
     private void reserve(Word word) {
         words.put(word.lexeme, word);
+    }
+
+    public int getLine() {
+        return line;
     }
 
     public Token scan() {
