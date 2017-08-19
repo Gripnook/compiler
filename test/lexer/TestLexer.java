@@ -53,7 +53,7 @@ public class TestLexer {
 
     @Test
     public void testScansOperators() {
-        StringReader in = new StringReader("+-*/()=!;<>[] == != <= >= && ||");
+        StringReader in = new StringReader("+-*/()=!;<>[]{} == != <= >= && ||");
         Lexer lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token('+'));
@@ -69,6 +69,8 @@ public class TestLexer {
         Assert.assertEquals(lex.scan(), new Token('>'));
         Assert.assertEquals(lex.scan(), new Token('['));
         Assert.assertEquals(lex.scan(), new Token(']'));
+        Assert.assertEquals(lex.scan(), new Token('{'));
+        Assert.assertEquals(lex.scan(), new Token('}'));
         Assert.assertEquals(lex.scan(), Word.EQUAL);
         Assert.assertEquals(lex.scan(), Word.NOT_EQUAL);
         Assert.assertEquals(lex.scan(), Word.LESS_THAN_OR_EQUAL);
@@ -78,11 +80,11 @@ public class TestLexer {
     }
 
     @Test
-    public void testBadTokenReturnsNull() {
+    public void testBadTokenReturnsInvalidToken() {
         StringReader in = new StringReader("");
         Lexer lex = new Lexer(in);
 
-        Assert.assertNull(lex.scan());
+        Assert.assertEquals(lex.scan(), Token.INVALID);
     }
 
     @Test
@@ -97,12 +99,12 @@ public class TestLexer {
     }
 
     @Test
-    public void testCountsNewlines() {
+    public void testKeepsTrackOfLineNumber() {
         StringReader in = new StringReader("\r\n\r\n\r\n ;");
         Lexer lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
-        Assert.assertEquals(lex.getLine(), 4);
+        Assert.assertEquals(lex.getLineNumber(), 4);
     }
 
     @Test
@@ -122,12 +124,12 @@ public class TestLexer {
     }
 
     @Test
-    public void testLineCommentsAddToLineCount() {
+    public void testLineCommentsAddToLineNumber() {
         StringReader in = new StringReader("// Comments.\n//\n//\n ;");
         Lexer lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
-        Assert.assertEquals(lex.getLine(), 4);
+        Assert.assertEquals(lex.getLineNumber(), 4);
     }
 
     @Test
@@ -147,12 +149,12 @@ public class TestLexer {
     }
 
     @Test
-    public void testBlockCommentsAddToLineCount() {
+    public void testBlockCommentsAddToLineNumber() {
         StringReader in = new StringReader("/* This \n is \n a \n multi-line \n comment. */\n ;");
         Lexer lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
-        Assert.assertEquals(lex.getLine(), 6);
+        Assert.assertEquals(lex.getLineNumber(), 6);
     }
 
     @Test

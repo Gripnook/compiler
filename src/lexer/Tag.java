@@ -2,7 +2,7 @@ package lexer;
 
 public class Tag {
     // Type identifiers.
-    public static final int BASIC = 256, NUM = 257, REAL = 258, ID = 259;
+    public static final int INVALID = 256, BASIC = 257, NUM = 258, REAL = 259, ID = 260;
 
     // Reserved keywords.
     public static final int TRUE = 320, FALSE = 321, IF = 322, ELSE = 323, DO = 324, WHILE = 325, BREAK = 326;

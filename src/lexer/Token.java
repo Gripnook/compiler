@@ -1,6 +1,8 @@
 package lexer;
 
 public class Token {
+    public static final Token INVALID = new Token(Tag.INVALID);
+
     public final int tag;
 
     public Token(int tag) {

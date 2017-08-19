@@ -1,11 +1,9 @@
 package lexer;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import symbols.Type;
@@ -13,20 +11,26 @@ import symbols.Type;
 public class Lexer {
     private static final Pattern numberPattern = Pattern.compile("\\G(\\d+\\.?\\d*|\\.\\d+)([eE][-+]?\\d+)?");
     private static final Pattern lexemePattern = Pattern.compile("\\G[a-zA-Z_]\\w*");
-    private static final Pattern tokenPattern = Pattern.compile("\\G(&&|\\|\\||==|!=|<=|>=|[-+*/()=!;<>\\[\\]])");
-    private static final Pattern whitespacePattern = Pattern.compile("\\G\\s");
-    private static final Pattern lineCommentPattern = Pattern.compile("\\G//.*\n");
+    private static final Pattern tokenPattern = Pattern.compile("\\G(&&|\\|\\||==|!=|<=|>=|[-+*/()=!;<>\\[\\]{}])");
+    private static final Pattern whitespacePattern = Pattern.compile("\\G\\s+");
+    private static final Pattern lineCommentPattern = Pattern.compile("\\G//.*");
     private static final Pattern blockCommentStartPattern = Pattern.compile("\\G/\\*");
-    private static final Pattern blockCommentEndPattern = Pattern.compile("\\G[^\n]*\\*/");
-    private static final Pattern linePattern = Pattern.compile("\\G.*\n");
-
-    private int line = 1;
+    private static final Pattern blockCommentEndPattern = Pattern.compile("\\G.*\\*/");
+    private static final Pattern linePattern = Pattern.compile("\\G.*");
 
     private Scanner in;
     private Map<String, Word> words = new HashMap<>();
 
     public Lexer(Reader in) {
-        this.in = new Scanner(in);
+        this(new Scanner(in));
+    }
+
+    public Lexer(InputStream in) {
+        this(new Scanner(in));
+    }
+
+    private Lexer(Scanner in) {
+        this.in = in;
 
         reserve(Tag.IF, "if");
         reserve(Tag.ELSE, "else");
@@ -41,10 +45,6 @@ public class Lexer {
         reserve(Type.FLOAT);
     }
 
-    public Lexer(InputStream in) {
-        this(new InputStreamReader(in));
-    }
-
     private void reserve(int tag, String lexeme) {
         reserve(new Word(tag, lexeme));
     }
@@ -53,8 +53,8 @@ public class Lexer {
         words.put(word.lexeme, word);
     }
 
-    public int getLine() {
-        return line;
+    public int getLineNumber() {
+        return in.getLineNumber();
     }
 
     public Token scan() {
@@ -62,7 +62,7 @@ public class Lexer {
         skipComments();
 
         String next = null;
-        if ((next = scan(numberPattern)) != null) {
+        if ((next = in.scan(numberPattern)) != null) {
             try {
                 int value = Integer.parseInt(next);
                 return new Num(value);
@@ -70,7 +70,7 @@ public class Lexer {
                 double value = Double.parseDouble(next);
                 return new Real(value);
             }
-        } else if ((next = scan(lexemePattern)) != null) {
+        } else if ((next = in.scan(lexemePattern)) != null) {
             String lexeme = next;
             Word word = words.get(lexeme);
             if (word == null) {
@@ -78,40 +78,30 @@ public class Lexer {
                 words.put(lexeme, word);
             }
             return word;
-        } else if ((next = scan(tokenPattern)) != null) {
+        } else if ((next = in.scan(tokenPattern)) != null) {
             return getToken(next);
         } else {
-            return null;
+            return Token.INVALID;
         }
     }
 
     private void skipWhitespace() {
-        String next = null;
-        while ((next = scan(whitespacePattern)) != null) {
-            if (next.equals("\n"))
-                ++line;
-        }
+        in.scan(whitespacePattern);
     }
 
     private void skipComments() {
         while (true) {
-            if (scan(lineCommentPattern) != null) {
-                ++line;
+            if (in.scan(lineCommentPattern) != null) {
                 skipWhitespace();
-            } else if (scan(blockCommentStartPattern) != null) {
-                while (scan(blockCommentEndPattern) == null) {
-                    scan(linePattern);
-                    ++line;
+            } else if (in.scan(blockCommentStartPattern) != null) {
+                while (in.scan(blockCommentEndPattern) == null) {
+                    in.scan(linePattern);
                 }
                 skipWhitespace();
             } else {
-                break;
+                return;
             }
         }
-    }
-
-    private String scan(Pattern pattern) {
-        return in.findWithinHorizon(pattern, 0);
     }
 
     private Token getToken(String terminal) {
