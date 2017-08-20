@@ -2,11 +2,11 @@ package inter;
 
 import symbols.Type;
 
-public class Set extends Statement {
+public class Assignment extends Statement {
     protected Id id;
     protected Expression expr;
 
-    protected Set(Id id, Expression expr, int lexline) {
+    protected Assignment(Id id, Expression expr, int lexline) {
         super(lexline);
         this.id = id;
         this.expr = expr;

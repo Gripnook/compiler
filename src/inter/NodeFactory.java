@@ -141,14 +141,14 @@ public class NodeFactory {
         return statement;
     }
 
-    public Set createSet(Id id, Expression expr) {
-        Set statement = new Set(id, expr, lex.getLineNumber());
+    public Assignment createAssignment(Id id, Expression expr) {
+        Assignment statement = new Assignment(id, expr, lex.getLineNumber());
         initialize(statement);
         return statement;
     }
 
-    public SetArrayElement createSetArrayElement(ArrayAccess access, Expression expr) {
-        SetArrayElement statement = new SetArrayElement(access, expr, lex.getLineNumber());
+    public ArrayAssignment createArrayAssignment(ArrayAccess access, Expression expr) {
+        ArrayAssignment statement = new ArrayAssignment(access, expr, lex.getLineNumber());
         initialize(statement);
         return statement;
     }

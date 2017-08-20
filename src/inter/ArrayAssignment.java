@@ -3,12 +3,12 @@ package inter;
 import symbols.Array;
 import symbols.Type;
 
-public class SetArrayElement extends Statement {
+public class ArrayAssignment extends Statement {
     protected Id array;
     protected Expression index;
     protected Expression expr;
 
-    protected SetArrayElement(ArrayAccess access, Expression expr, int lexline) {
+    protected ArrayAssignment(ArrayAccess access, Expression expr, int lexline) {
         super(lexline);
         this.array = access.array;
         this.index = access.index;
