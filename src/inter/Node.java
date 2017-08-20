@@ -25,8 +25,8 @@ public abstract class Node {
         generator.emitLabel(label);
     }
 
-    protected void emit(String s) {
-        generator.emit(s);
+    protected void emit(String instruction) {
+        generator.emit(instruction);
     }
 
     protected void error(String message) {

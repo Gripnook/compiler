@@ -9,5 +9,5 @@ public abstract class IntermediateCodeGenerator {
 
     public abstract void emitLabel(int label);
 
-    public abstract void emit(String s);
+    public abstract void emit(String instruction);
 }

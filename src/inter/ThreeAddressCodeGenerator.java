@@ -16,7 +16,7 @@ public class ThreeAddressCodeGenerator extends IntermediateCodeGenerator {
     }
 
     @Override
-    public void emit(String s) {
-        out.println("\t" + s);
+    public void emit(String instruction) {
+        out.println("\t" + instruction);
     }
 }
