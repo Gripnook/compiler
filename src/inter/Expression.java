@@ -3,21 +3,21 @@ package inter;
 import lexer.Token;
 import symbols.Type;
 
-public class Expr extends Node {
-    protected Token token;
-    protected Type type;
+public class Expression extends Node {
+    public Token token;
+    public Type type;
 
-    protected Expr(Token token, Type type, int lexline) {
+    protected Expression(Token token, Type type, int lexline) {
         super(lexline);
         this.token = token;
         this.type = type;
     }
 
-    public Expr generate() {
+    public Expression generate() {
         return this;
     }
 
-    public Expr reduce() {
+    public Expression reduce() {
         return this;
     }
 
@@ -45,6 +45,7 @@ public class Expr extends Node {
 
     @Override
     public boolean equals(Object other) {
-        return (other instanceof Expr) && token.equals(((Expr) other).token) && type.equals(((Expr) other).type);
+        return (other instanceof Expression) && token.equals(((Expression) other).token)
+                && type.equals(((Expression) other).type);
     }
 }

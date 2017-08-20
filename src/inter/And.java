@@ -3,7 +3,7 @@ package inter;
 import lexer.Token;
 
 public class And extends Logical {
-    protected And(Token op, Expr lhs, Expr rhs, int lexline) {
+    protected And(Token op, Expression lhs, Expression rhs, int lexline) {
         super(op, lhs, rhs, lexline);
     }
 

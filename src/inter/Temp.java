@@ -3,7 +3,7 @@ package inter;
 import lexer.Word;
 import symbols.Type;
 
-public class Temp extends Expr {
+public class Temp extends Expression {
     protected int number;
 
     protected Temp(Type type, int number, int lexline) {

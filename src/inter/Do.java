@@ -2,9 +2,9 @@ package inter;
 
 import symbols.Type;
 
-public class Do extends Stmt {
-    protected Expr expr;
-    protected Stmt stmt;
+public class Do extends Statement {
+    protected Expression expr;
+    protected Statement stmt;
 
     protected Do(int lexline) {
         super(lexline);
@@ -12,11 +12,11 @@ public class Do extends Stmt {
         stmt = null;
     }
 
-    protected void init(Expr expr, Stmt stmt) {
+    public void init(Expression expr, Statement stmt) {
         this.expr = expr;
         this.stmt = stmt;
         if (!expr.type.equals(Type.BOOL))
-            error("boolean required in while");
+            error("boolean required in do");
     }
 
     @Override

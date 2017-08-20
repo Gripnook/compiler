@@ -5,9 +5,9 @@ import lexer.Token;
 import lexer.Word;
 import symbols.Type;
 
-public class Constant extends Expr {
-    private static final Constant TRUE = new Constant(Word.TRUE, Type.BOOL, 0);
-    private static final Constant FALSE = new Constant(Word.FALSE, Type.BOOL, 0);
+public class Constant extends Expression {
+    protected static final Constant TRUE = new Constant(Word.TRUE, Type.BOOL, 0);
+    protected static final Constant FALSE = new Constant(Word.FALSE, Type.BOOL, 0);
 
     protected Constant(Token token, Type type, int lexline) {
         super(token, type, lexline);

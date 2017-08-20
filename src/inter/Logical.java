@@ -3,10 +3,10 @@ package inter;
 import lexer.Token;
 import symbols.Type;
 
-public class Logical extends Expr {
-    protected Expr lhs, rhs;
+public class Logical extends Expression {
+    protected Expression lhs, rhs;
 
-    protected Logical(Token op, Expr lhs, Expr rhs, int lexline) {
+    protected Logical(Token op, Expression lhs, Expression rhs, int lexline) {
         super(op, null, lexline);
         this.lhs = lhs;
         this.rhs = rhs;
@@ -23,16 +23,16 @@ public class Logical extends Expr {
     }
 
     @Override
-    public Expr generate() {
+    public Expression generate() {
         int f = createLabel();
-        int a = createLabel();
+        int after = createLabel();
         Temp temp = factory.createTemp(type, lexline);
         jumping(0, f);
         emit(temp.toString() + " = true");
-        emit("goto L" + a);
+        emit("goto L" + after);
         emitLabel(f);
         emit(temp.toString() + " = false");
-        emitLabel(a);
+        emitLabel(after);
         return temp;
     }
 

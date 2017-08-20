@@ -4,8 +4,8 @@ import lexer.Token;
 import symbols.Array;
 import symbols.Type;
 
-public class Rel extends Logical {
-    protected Rel(Token op, Expr lhs, Expr rhs, int lexline) {
+public class Relational extends Logical {
+    protected Relational(Token op, Expression lhs, Expression rhs, int lexline) {
         super(op, lhs, rhs, lexline);
     }
 
@@ -21,14 +21,14 @@ public class Rel extends Logical {
 
     @Override
     public void jumping(int t, int f) {
-        Expr a = lhs.reduce();
-        Expr b = rhs.reduce();
-        String test = a.toString() + " " + token.toString() + " " + b.toString();
+        Expression lhs = this.lhs.reduce();
+        Expression rhs = this.rhs.reduce();
+        String test = lhs.toString() + " " + token.toString() + " " + rhs.toString();
         emitJumps(test, t, f);
     }
 
     @Override
     public boolean equals(Object other) {
-        return super.equals(other) && (other instanceof Rel);
+        return super.equals(other) && (other instanceof Relational);
     }
 }

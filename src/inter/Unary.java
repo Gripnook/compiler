@@ -4,9 +4,9 @@ import lexer.Token;
 import symbols.Type;
 
 public class Unary extends Op {
-    protected Expr expr;
+    protected Expression expr;
 
-    protected Unary(Token op, Expr expr, int lexline) {
+    protected Unary(Token op, Expression expr, int lexline) {
         super(op, null, lexline);
         type = Type.max(Type.INT, expr.type);
         if (type == null)
@@ -14,7 +14,7 @@ public class Unary extends Op {
     }
 
     @Override
-    public Expr generate() {
+    public Expression generate() {
         return factory.createUnary(token, expr.reduce(), lexline);
     }
 

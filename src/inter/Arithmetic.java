@@ -3,10 +3,10 @@ package inter;
 import lexer.Token;
 import symbols.Type;
 
-public class Arith extends Op {
-    protected Expr lhs, rhs;
+public class Arithmetic extends Op {
+    protected Expression lhs, rhs;
 
-    protected Arith(Token op, Expr lhs, Expr rhs, int lexline) {
+    protected Arithmetic(Token op, Expression lhs, Expression rhs, int lexline) {
         super(op, null, lexline);
         this.lhs = lhs;
         this.rhs = rhs;
@@ -16,8 +16,8 @@ public class Arith extends Op {
     }
 
     @Override
-    public Expr generate() {
-        return factory.createArith(token, lhs.reduce(), rhs.reduce(), lexline);
+    public Expression generate() {
+        return factory.createArithmetic(token, lhs.reduce(), rhs.reduce(), lexline);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Arith extends Op {
 
     @Override
     public boolean equals(Object other) {
-        return super.equals(other) && (other instanceof Arith) && lhs.equals(((Arith) other).lhs)
-                && rhs.equals(((Arith) other).rhs);
+        return super.equals(other) && (other instanceof Arithmetic) && lhs.equals(((Arithmetic) other).lhs)
+                && rhs.equals(((Arithmetic) other).rhs);
     }
 }

@@ -3,7 +3,7 @@ package inter;
 import lexer.Word;
 import symbols.Type;
 
-public class Id extends Expr {
+public class Id extends Expression {
     protected int offset; // Relative address.
 
     protected Id(Word word, Type type, int offset, int lexline) {

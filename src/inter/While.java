@@ -2,9 +2,9 @@ package inter;
 
 import symbols.Type;
 
-public class While extends Stmt {
-    protected Expr expr;
-    protected Stmt stmt;
+public class While extends Statement {
+    protected Expression expr;
+    protected Statement stmt;
 
     protected While(int lexline) {
         super(lexline);
@@ -12,7 +12,7 @@ public class While extends Stmt {
         stmt = null;
     }
 
-    protected void init(Expr expr, Stmt stmt) {
+    public void init(Expression expr, Statement stmt) {
         this.expr = expr;
         this.stmt = stmt;
         if (!expr.type.equals(Type.BOOL))

@@ -3,17 +3,17 @@ package inter;
 import lexer.Token;
 import symbols.Type;
 
-public class Op extends Expr {
+public class Op extends Expression {
     protected Op(Token op, Type type, int lexline) {
         super(op, type, lexline);
     }
 
     @Override
-    public Expr reduce() {
-        Expr x = generate();
-        Temp t = factory.createTemp(type, lexline);
-        emit(t.toString() + " = " + x.toString());
-        return t;
+    public Expression reduce() {
+        Expression expr = generate();
+        Temp temp = factory.createTemp(type, lexline);
+        emit(temp.toString() + " = " + expr.toString());
+        return temp;
     }
 
     @Override

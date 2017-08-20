@@ -1,38 +1,35 @@
 package inter;
 
-import java.io.PrintWriter;
-
-public class Node {
-    protected NodeFactory factory;
-    protected int lexline;
-
-    private PrintWriter out;
-
-    void setFactory(NodeFactory factory) {
-        this.factory = factory;
-    }
-
-    void setWriter(PrintWriter out) {
-        this.out = out;
-    }
+public abstract class Node {
+    protected IntermediateCodeGenerator generator = null;
+    protected NodeFactory factory = null;
+    protected int lexline = 0;
 
     protected Node(int lexline) {
         this.lexline = lexline;
     }
 
-    protected void error(String message) {
-        throw new Error("near line " + lexline + ": " + message);
+    void setGenerator(IntermediateCodeGenerator generator) {
+        this.generator = generator;
+    }
+
+    void setFactory(NodeFactory factory) {
+        this.factory = factory;
     }
 
     protected int createLabel() {
-        return factory.createLabel();
+        return generator.createLabel();
     }
 
     protected void emitLabel(int label) {
-        out.print("L" + label + ":");
+        generator.emitLabel(label);
     }
 
     protected void emit(String s) {
-        out.println("\t" + s);
+        generator.emit(s);
+    }
+
+    protected void error(String message) {
+        throw new Error("near line " + lexline + ": " + message);
     }
 }

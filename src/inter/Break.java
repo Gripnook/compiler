@@ -1,11 +1,11 @@
 package inter;
 
-public class Break extends Stmt {
-    protected Stmt enclosing;
+public class Break extends Statement {
+    protected Statement enclosing;
 
-    protected Break(Stmt enclosing, int lexline) {
+    protected Break(Statement enclosing, int lexline) {
         super(lexline);
-        if (enclosing.equals(Stmt.NULL))
+        if (enclosing.equals(Statement.NULL))
             error("unenclosed break");
         this.enclosing = enclosing;
     }

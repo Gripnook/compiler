@@ -3,7 +3,7 @@ package inter;
 import lexer.Token;
 
 public class Or extends Logical {
-    protected Or(Token op, Expr lhs, Expr rhs, int lexline) {
+    protected Or(Token op, Expression lhs, Expression rhs, int lexline) {
         super(op, lhs, rhs, lexline);
     }
 

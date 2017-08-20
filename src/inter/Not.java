@@ -3,7 +3,7 @@ package inter;
 import lexer.Token;
 
 public class Not extends Logical {
-    protected Not(Token op, Expr expr, int lexline) {
+    protected Not(Token op, Expression expr, int lexline) {
         super(op, expr, expr, lexline);
     }
 

@@ -1,9 +1,9 @@
 package inter;
 
-public class Seq extends Stmt {
-    protected Stmt stmt1, stmt2;
+public class Statements extends Statement {
+    protected Statement stmt1, stmt2;
 
-    protected Seq(Stmt stmt1, Stmt stmt2, int lexline) {
+    protected Statements(Statement stmt1, Statement stmt2, int lexline) {
         super(lexline);
         this.stmt1 = stmt1;
         this.stmt2 = stmt2;
@@ -11,9 +11,9 @@ public class Seq extends Stmt {
 
     @Override
     public void generate(int begin, int after) {
-        if (stmt1.equals(Stmt.NULL)) {
+        if (stmt1.equals(Statement.NULL)) {
             stmt2.generate(begin, after);
-        } else if (stmt2.equals(Stmt.NULL)) {
+        } else if (stmt2.equals(Statement.NULL)) {
             stmt1.generate(begin, after);
         } else {
             int label = createLabel();
