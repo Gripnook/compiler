@@ -23,8 +23,8 @@ public class Relational extends Logical {
     public void jumping(int t, int f) {
         Expression lhs = this.lhs.reduce();
         Expression rhs = this.rhs.reduce();
-        String test = lhs.toString() + " " + token.toString() + " " + rhs.toString();
-        emitJumps(test, t, f);
+        Expression test = factory.createArithmetic(token, lhs, rhs, lexline);
+        emitJumps(test.reduce(), t, f);
     }
 
     @Override

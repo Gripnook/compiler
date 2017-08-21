@@ -11,9 +11,9 @@ public abstract class IntermediateCodeGenerator {
 
     public abstract void emitGoto(int label);
 
-    public abstract void emitIf(String test, int label); // TODO
+    public abstract void emitIf(Expression test, int label);
 
-    public abstract void emitIfFalse(String test, int label); // TODO
+    public abstract void emitIfFalse(Expression test, int label);
 
     public abstract void emitAssignment(Temp temp, Expression expr);
 

@@ -30,6 +30,8 @@ public class ArrayAssignment extends Statement {
 
     @Override
     public void generate(int begin, int after) {
-        generator.emitArrayAssignment(array, index.reduce(), expr.reduce());
+        Expression index = this.index.reduce();
+        Expression expr = this.expr.reduce();
+        generator.emitArrayAssignment(array, index, expr);
     }
 }

@@ -21,13 +21,13 @@ public class ThreeAddressCodeGenerator extends IntermediateCodeGenerator {
     }
 
     @Override
-    public void emitIf(String test, int label) {
-        emit("if " + test + " goto L" + label);
+    public void emitIf(Expression test, int label) {
+        emit("if " + test.toString() + " goto L" + label);
     }
 
     @Override
-    public void emitIfFalse(String test, int label) {
-        emit("iffalse " + test + " goto L" + label);
+    public void emitIfFalse(Expression test, int label) {
+        emit("iffalse " + test.toString() + " goto L" + label);
     }
 
     @Override

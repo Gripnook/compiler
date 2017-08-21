@@ -17,7 +17,9 @@ public class Arithmetic extends Op {
 
     @Override
     public Expression generate() {
-        return factory.createArithmetic(token, lhs.reduce(), rhs.reduce(), lexline);
+        Expression lhs = this.lhs.reduce();
+        Expression rhs = this.rhs.reduce();
+        return factory.createArithmetic(token, lhs, rhs, lexline);
     }
 
     @Override

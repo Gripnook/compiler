@@ -21,7 +21,7 @@ public class ArrayAccess extends Op {
 
     @Override
     public void jumping(int t, int f) {
-        emitJumps(reduce().toString(), t, f);
+        emitJumps(reduce(), t, f);
     }
 
     @Override

@@ -22,10 +22,10 @@ public class Expression extends Node {
     }
 
     public void jumping(int t, int f) {
-        emitJumps(toString(), t, f);
+        emitJumps(this, t, f);
     }
 
-    public void emitJumps(String test, int t, int f) {
+    public void emitJumps(Expression test, int t, int f) {
         if (t != 0 && f != 0) {
             generator.emitIf(test, t);
             generator.emitGoto(f);
