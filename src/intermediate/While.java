@@ -23,9 +23,9 @@ public class While extends Statement {
     public void generate(int begin, int after) {
         this.after = after; // Save label after.
         expr.jumping(0, after);
-        int label = createLabel(); // Label for statement.
-        emitLabel(label);
+        int label = generator.createLabel(); // Label for statement.
+        generator.emitLabel(label);
         stmt.generate(label, begin);
-        emit("goto L" + begin);
+        generator.emitGoto(begin);
     }
 }

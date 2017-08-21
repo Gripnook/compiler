@@ -16,9 +16,9 @@ public class If extends Statement {
 
     @Override
     public void generate(int begin, int after) {
-        int label = createLabel(); // Label for the code for the statement.
+        int label = generator.createLabel();
         expr.jumping(0, after);
-        emitLabel(label);
+        generator.emitLabel(label);
         stmt.generate(label, after);
     }
 }

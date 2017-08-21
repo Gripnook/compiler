@@ -12,7 +12,7 @@ public class Op extends Expression {
     public Expression reduce() {
         Expression expr = generate();
         Temp temp = factory.createTemp(type, lexline);
-        emit(temp.toString() + " = " + expr.toString());
+        generator.emitAssignment(temp, expr);
         return temp;
     }
 

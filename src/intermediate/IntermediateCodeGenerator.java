@@ -9,5 +9,15 @@ public abstract class IntermediateCodeGenerator {
 
     public abstract void emitLabel(int label);
 
-    public abstract void emit(String instruction);
+    public abstract void emitGoto(int label);
+
+    public abstract void emitIf(String test, int label); // TODO
+
+    public abstract void emitIfFalse(String test, int label); // TODO
+
+    public abstract void emitAssignment(Temp temp, Expression expr);
+
+    public abstract void emitAssignment(Id id, Expression expr);
+
+    public abstract void emitArrayAssignment(Id array, Expression index, Expression expr);
 }

@@ -22,9 +22,9 @@ public class Do extends Statement {
     @Override
     public void generate(int begin, int after) {
         this.after = after; // Save label after.
-        int label = createLabel(); // Label for expression.
+        int label = generator.createLabel(); // Label for expression.
         stmt.generate(begin, label);
-        emitLabel(label);
+        generator.emitLabel(label);
         expr.jumping(begin, 0);
     }
 }

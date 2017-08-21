@@ -17,18 +17,6 @@ public abstract class Node {
         this.factory = factory;
     }
 
-    protected int createLabel() {
-        return generator.createLabel();
-    }
-
-    protected void emitLabel(int label) {
-        generator.emitLabel(label);
-    }
-
-    protected void emit(String instruction) {
-        generator.emit(instruction);
-    }
-
     protected void error(String message) {
         throw new Error("near line " + lexline + ": " + message);
     }

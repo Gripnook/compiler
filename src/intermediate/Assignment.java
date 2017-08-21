@@ -25,6 +25,6 @@ public class Assignment extends Statement {
 
     @Override
     public void generate(int begin, int after) {
-        emit(id.toString() + " = " + expr.generate().toString());
+        generator.emitAssignment(id, expr.generate());
     }
 }

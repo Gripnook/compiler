@@ -20,9 +20,9 @@ public class Constant extends Expression {
     @Override
     public void jumping(int t, int f) {
         if (this.equals(TRUE) && t != 0)
-            emit("goto L" + t);
+            generator.emitGoto(t);
         else if (this.equals(FALSE) && f != 0)
-            emit("goto L" + f);
+            generator.emitGoto(f);
     }
 
     @Override

@@ -12,6 +12,6 @@ public class Break extends Statement {
 
     @Override
     public void generate(int begin, int after) {
-        emit("goto L" + enclosing.after);
+        generator.emitGoto(enclosing.after);
     }
 }

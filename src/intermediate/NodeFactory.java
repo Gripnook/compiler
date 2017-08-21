@@ -21,6 +21,12 @@ public class NodeFactory {
         return constant;
     }
 
+    public Constant createConstant(Token token, Type type, int lexline) {
+        Constant constant = new Constant(token, type, lexline);
+        initialize(constant);
+        return constant;
+    }
+
     public Constant createConstant(int value) {
         Constant constant = new Constant(value, lex.getLineNumber());
         initialize(constant);

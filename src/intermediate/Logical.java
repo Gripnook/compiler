@@ -1,6 +1,7 @@
 package intermediate;
 
 import lexer.Token;
+import lexer.Word;
 import symbols.Type;
 
 public class Logical extends Expression {
@@ -24,15 +25,15 @@ public class Logical extends Expression {
 
     @Override
     public Expression generate() {
-        int f = createLabel();
-        int after = createLabel();
+        int f = generator.createLabel();
+        int after = generator.createLabel();
         Temp temp = factory.createTemp(type, lexline);
         jumping(0, f);
-        emit(temp.toString() + " = true");
-        emit("goto L" + after);
-        emitLabel(f);
-        emit(temp.toString() + " = false");
-        emitLabel(after);
+        generator.emitAssignment(temp, factory.createConstant(Word.TRUE, Type.BOOL, lexline));
+        generator.emitGoto(after);
+        generator.emitLabel(f);
+        generator.emitAssignment(temp, factory.createConstant(Word.FALSE, Type.BOOL, lexline));
+        generator.emitLabel(after);
         return temp;
     }
 

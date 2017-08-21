@@ -16,9 +16,9 @@ public class Statements extends Statement {
         } else if (stmt2.equals(Statement.NULL)) {
             stmt1.generate(begin, after);
         } else {
-            int label = createLabel();
+            int label = generator.createLabel();
             stmt1.generate(begin, label);
-            emitLabel(label);
+            generator.emitLabel(label);
             stmt2.generate(label, after);
         }
     }

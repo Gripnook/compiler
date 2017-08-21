@@ -27,12 +27,12 @@ public class Expression extends Node {
 
     public void emitJumps(String test, int t, int f) {
         if (t != 0 && f != 0) {
-            emit("if " + test + " goto L" + t);
-            emit("goto L" + f);
+            generator.emitIf(test, t);
+            generator.emitGoto(f);
         } else if (t != 0) {
-            emit("if " + test + " goto L" + t);
+            generator.emitIf(test, t);
         } else if (f != 0) {
-            emit("iffalse " + test + " goto L" + f);
+            generator.emitIfFalse(test, f);
         } else {
             // Nothing since both t and f fall through.
         }
