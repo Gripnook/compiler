@@ -26,7 +26,7 @@ public class ArrayAccess extends Op {
 
     @Override
     public String toString() {
-        return array.toString() + "[" + index.toString() + "]";
+        return array.toString() + "[ " + index.toString() + " ]";
     }
 
     @Override

@@ -42,7 +42,7 @@ public class ThreeAddressCodeGenerator extends IntermediateCodeGenerator {
 
     @Override
     public void emitArrayAssignment(Id array, Expression index, Expression expr) {
-        emit(array.toString() + "[" + index.toString() + "] = " + expr.toString());
+        emit(array.toString() + "[ " + index.toString() + " ] = " + expr.toString());
     }
 
     private void emit(String instruction) {
