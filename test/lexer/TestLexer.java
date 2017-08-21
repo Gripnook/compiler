@@ -17,6 +17,17 @@ public class TestLexer {
     }
 
     @Test
+    public void testCanCreateWithReader() {
+        StringReader buffer = new StringReader("");
+        lex = new Lexer(buffer);
+    }
+
+    @Test
+    public void testCanCreateWithInputStream() {
+        lex = new Lexer(System.in);
+    }
+
+    @Test
     public void testScansNumbers() {
         StringReader in = new StringReader("100 42 1.0e+2 3.14 .1e-0 6.022E23 42.");
         lex = new Lexer(in);

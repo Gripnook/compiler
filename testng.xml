@@ -5,6 +5,7 @@
     <test name="lexer">
         <classes>
             <class name="lexer.TestLexer" />
+            <class name="lexer.TestScanner" />
         </classes>
     </test>
     
