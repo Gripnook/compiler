@@ -13,7 +13,7 @@ public class Temp extends Expression {
 
     @Override
     public String toString() {
-        return "t" + number;
+        return "$t" + number;
     }
 
     @Override
