@@ -3,15 +3,23 @@ package lexer;
 import java.io.StringReader;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import symbols.Type;
 
 public class TestLexer {
+    private Lexer lex;
+
+    @AfterMethod
+    public void tearDown() {
+        lex.close();
+    }
+
     @Test
     public void testScansNumbers() {
         StringReader in = new StringReader("100 42 1.0e+2 3.14 .1e-0 6.022E23 42.");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Num(100));
         Assert.assertEquals(lex.scan(), new Num(42));
@@ -25,7 +33,7 @@ public class TestLexer {
     @Test
     public void testScansKeywords() {
         StringReader in = new StringReader("if else do while break true false int float char bool");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Word(Tag.IF, "if"));
         Assert.assertEquals(lex.scan(), new Word(Tag.ELSE, "else"));
@@ -43,7 +51,7 @@ public class TestLexer {
     @Test
     public void testScansIdentifiers() {
         StringReader in = new StringReader("x y __id__ a0");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Word(Tag.ID, "x"));
         Assert.assertEquals(lex.scan(), new Word(Tag.ID, "y"));
@@ -54,7 +62,7 @@ public class TestLexer {
     @Test
     public void testScansOperators() {
         StringReader in = new StringReader("+-*/()=!;<>[]{} == != <= >= && ||");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token('+'));
         Assert.assertEquals(lex.scan(), new Token('-'));
@@ -82,7 +90,7 @@ public class TestLexer {
     @Test
     public void testBadTokenReturnsInvalidToken() {
         StringReader in = new StringReader("");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), Token.INVALID);
     }
@@ -90,7 +98,7 @@ public class TestLexer {
     @Test
     public void testSkipsWhitespace() {
         StringReader in = new StringReader("\t\t x+y ;");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Word(Tag.ID, "x"));
         Assert.assertEquals(lex.scan(), new Token('+'));
@@ -101,7 +109,7 @@ public class TestLexer {
     @Test
     public void testKeepsTrackOfLineNumber() {
         StringReader in = new StringReader("\r\n\r\n\r\n ;");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
         Assert.assertEquals(lex.getLineNumber(), 4);
@@ -110,7 +118,7 @@ public class TestLexer {
     @Test
     public void testSkipsLineComments() {
         StringReader in = new StringReader("// This is a comment.\n" + "x = 0; // Define x.\n" + "print(x);\n");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Word(Tag.ID, "x"));
         Assert.assertEquals(lex.scan(), new Token('='));
@@ -126,7 +134,7 @@ public class TestLexer {
     @Test
     public void testLineCommentsAddToLineNumber() {
         StringReader in = new StringReader("// Comments.\n//\n//\n ;");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
         Assert.assertEquals(lex.getLineNumber(), 4);
@@ -135,7 +143,7 @@ public class TestLexer {
     @Test
     public void testSkipsBlockComments() {
         StringReader in = new StringReader("/* This is a comment. */\n" + "x = 0; /* Define x. */\n" + "print(x);\n");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Word(Tag.ID, "x"));
         Assert.assertEquals(lex.scan(), new Token('='));
@@ -151,7 +159,7 @@ public class TestLexer {
     @Test
     public void testBlockCommentsAddToLineNumber() {
         StringReader in = new StringReader("/* This \n is \n a \n multi-line \n comment. */\n ;");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
         Assert.assertEquals(lex.getLineNumber(), 6);
@@ -160,7 +168,7 @@ public class TestLexer {
     @Test
     public void testCombiningCommentTypes() {
         StringReader in = new StringReader("/* This is a comment. */ // This is also a comment.\n ;");
-        Lexer lex = new Lexer(in);
+        lex = new Lexer(in);
 
         Assert.assertEquals(lex.scan(), new Token(';'));
     }
