@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 public class Break extends Statement {
     protected Statement enclosing;

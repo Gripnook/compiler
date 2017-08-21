@@ -13,4 +13,8 @@ public class Tag {
 
     // Internal.
     public static final int INDEX = 448, MINUS = 449, TEMP = 450;
+
+    private Tag() {
+
+    }
 }

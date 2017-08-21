@@ -3,8 +3,8 @@ package main;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import inter.IntermediateCodeGenerator;
-import inter.ThreeAddressCodeGenerator;
+import intermediate.IntermediateCodeGenerator;
+import intermediate.ThreeAddressCodeGenerator;
 import lexer.Lexer;
 import parser.Parser;
 

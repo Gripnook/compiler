@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 public abstract class IntermediateCodeGenerator {
     private int labels = 0;

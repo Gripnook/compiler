@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 public class Statement extends Node {
     // The empty sequence of statements.

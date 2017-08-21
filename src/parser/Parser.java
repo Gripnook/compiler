@@ -1,13 +1,13 @@
 package parser;
 
-import inter.ArrayAccess;
-import inter.IntermediateCodeGenerator;
-import inter.Do;
-import inter.Expression;
-import inter.Id;
-import inter.NodeFactory;
-import inter.Statement;
-import inter.While;
+import intermediate.ArrayAccess;
+import intermediate.Do;
+import intermediate.Expression;
+import intermediate.Id;
+import intermediate.IntermediateCodeGenerator;
+import intermediate.NodeFactory;
+import intermediate.Statement;
+import intermediate.While;
 import lexer.Lexer;
 import lexer.Num;
 import lexer.Tag;

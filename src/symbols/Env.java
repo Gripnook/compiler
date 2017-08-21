@@ -3,7 +3,7 @@ package symbols;
 import java.util.HashMap;
 import java.util.Map;
 
-import inter.Id;
+import intermediate.Id;
 import lexer.Token;
 
 public class Env {

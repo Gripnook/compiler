@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 import symbols.Array;
 import symbols.Type;

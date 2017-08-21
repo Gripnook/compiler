@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 public class Statements extends Statement {
     protected Statement stmt1, stmt2;

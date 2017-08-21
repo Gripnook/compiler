@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 import lexer.Token;
 import symbols.Array;

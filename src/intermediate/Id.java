@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 import lexer.Word;
 import symbols.Type;

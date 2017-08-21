@@ -1,12 +1,12 @@
-package inter;
+package intermediate;
 
 import symbols.Type;
 
-public class Do extends Statement {
+public class While extends Statement {
     protected Expression expr;
     protected Statement stmt;
 
-    protected Do(int lexline) {
+    protected While(int lexline) {
         super(lexline);
         expr = null;
         stmt = null;
@@ -16,15 +16,16 @@ public class Do extends Statement {
         this.expr = expr;
         this.stmt = stmt;
         if (!expr.type.equals(Type.BOOL))
-            error("boolean required in do");
+            error("boolean required in while");
     }
 
     @Override
     public void generate(int begin, int after) {
         this.after = after; // Save label after.
-        int label = createLabel(); // Label for expression.
-        stmt.generate(begin, label);
+        expr.jumping(0, after);
+        int label = createLabel(); // Label for statement.
         emitLabel(label);
-        expr.jumping(begin, 0);
+        stmt.generate(label, begin);
+        emit("goto L" + begin);
     }
 }

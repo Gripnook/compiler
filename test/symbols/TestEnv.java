@@ -3,7 +3,7 @@ package symbols;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import inter.MockId;
+import intermediate.MockId;
 import lexer.Tag;
 import lexer.Word;
 

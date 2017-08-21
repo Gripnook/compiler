@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 public abstract class Node {
     protected IntermediateCodeGenerator generator = null;

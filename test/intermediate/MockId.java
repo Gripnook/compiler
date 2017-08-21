@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 public class MockId extends Id {
     public final String scope;

@@ -1,4 +1,4 @@
-package inter;
+package intermediate;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
