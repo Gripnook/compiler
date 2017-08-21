@@ -63,6 +63,12 @@ public class NodeFactory {
         return relational;
     }
 
+    public Relational createRelational(Token op, Expression lhs, Expression rhs, int lexline) {
+        Relational relational = new Relational(op, lhs, rhs, lexline);
+        initialize(relational);
+        return relational;
+    }
+
     public Arithmetic createArithmetic(Token op, Expression lhs, Expression rhs) {
         Arithmetic arithmetic = new Arithmetic(op, lhs, rhs, lex.getLineNumber());
         initialize(arithmetic);
