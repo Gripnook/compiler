@@ -25,6 +25,11 @@ public class Logical extends Expression {
 
     @Override
     public Expression generate() {
+        return reduce();
+    }
+
+    @Override
+    public Expression reduce() {
         int f = generator.createLabel();
         int after = generator.createLabel();
         Temp temp = factory.createTemp(type, lexline);
