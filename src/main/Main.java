@@ -10,8 +10,7 @@ import parser.Parser;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        try (FileInputStream in = new FileInputStream("test_program")) {
-            Lexer lex = new Lexer(in);
+        try (Lexer lex = new Lexer(new FileInputStream("test_program"))) {
             IntermediateCodeGenerator generator = new ThreeAddressCodeGenerator(System.out);
             Parser parse = new Parser(lex, generator);
             parse.program();

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import symbols.Type;
 
-public class Lexer {
+public class Lexer implements AutoCloseable {
     private static final Pattern numberPattern = Pattern.compile("\\G(\\d+\\.?\\d*|\\.\\d+)([eE][-+]?\\d+)?");
     private static final Pattern lexemePattern = Pattern.compile("\\G[a-zA-Z_]\\w*");
     private static final Pattern tokenPattern = Pattern.compile("\\G(&&|\\|\\||==|!=|<=|>=|[-+*/()=!;<>\\[\\]{}])");
@@ -51,6 +51,11 @@ public class Lexer {
 
     private void reserve(Word word) {
         words.put(word.lexeme, word);
+    }
+
+    @Override
+    public void close() {
+        in.close();
     }
 
     public int getLineNumber() {

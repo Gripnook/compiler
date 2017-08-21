@@ -12,6 +12,11 @@ public class Id extends Expression {
     }
 
     @Override
+    public String toString() {
+        return token.toString() + "." + offset;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return super.equals(other) && (other instanceof Id) && offset == ((Id) other).offset;
     }

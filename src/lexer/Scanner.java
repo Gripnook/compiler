@@ -5,7 +5,7 @@ import java.io.Reader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Scanner {
+public class Scanner implements AutoCloseable {
     private java.util.Scanner in;
     private String line = "";
     private int lineNumber = 0;
@@ -16,6 +16,11 @@ public class Scanner {
 
     public Scanner(InputStream in) {
         this.in = new java.util.Scanner(in);
+    }
+
+    @Override
+    public void close() {
+        in.close();
     }
 
     public int getLineNumber() {

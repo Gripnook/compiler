@@ -15,4 +15,10 @@
         </classes>
     </test>
     
+    <test name="parser">
+        <classes>
+            <class name="parser.TestParser" />
+        </classes>
+    </test>
+    
 </suite>
