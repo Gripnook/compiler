@@ -1,7 +1,6 @@
 package symbols;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.*;
 
 public class TestType {
     @Test

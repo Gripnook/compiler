@@ -2,16 +2,14 @@ package lexer;
 
 import java.io.StringReader;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
+import org.junit.*;
 
 import symbols.Type;
 
 public class TestLexer {
     private Lexer lex;
 
-    @AfterMethod
+    @After
     public void tearDown() {
         lex.close();
     }

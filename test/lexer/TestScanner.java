@@ -3,14 +3,12 @@ package lexer;
 import java.io.StringReader;
 import java.util.regex.Pattern;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
+import org.junit.*;
 
 public class TestScanner {
     private Scanner in;
 
-    @AfterMethod
+    @After
     public void tearDown() {
         in.close();
     }

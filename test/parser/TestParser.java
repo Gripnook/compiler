@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringReader;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.*;
 
 import intermediate.IntermediateCodeGenerator;
 import intermediate.ThreeAddressCodeGenerator;
